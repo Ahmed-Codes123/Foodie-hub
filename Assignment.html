@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foodie Hub | Discover Delicious Food</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fffaf5;
+    color: #252525;
+}
+
+:root {
+    --orange: #ff6b35;
+    --dark: #202020;
+    --light: #fff3e9;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 7%;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 15px #0000000d;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--orange);
+}
+
+.logo span {
+    color: var(--dark);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--orange);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: #e65320;
+    transform: translateY(-2px);
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 75px 8%;
+    min-height: 470px;
+    background: var(--light);
+    gap: 30px;
+}
+
+.hero-text {
+    max-width: 550px;
+}
+
+.hero-text small {
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.2;
+    margin: 15px 0;
+}
+
+.hero h1 span {
+    color: var(--orange);
+}
+
+.hero p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.hero img {
+    width: 43%;
+    max-width: 460px;
+    border-radius: 50%;
+    box-shadow: 0 15px 40px #ff6b3540;
+}
+
+.section {
+    padding: 65px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title small {
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-top: 8px;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.category-btn {
+    padding: 11px 22px;
+    border: 1px solid #eee;
+    background: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+}
+
+.search-area {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto 35px;
+    gap: 10px;
+}
+
+.search-area input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    outline: none;
+    font-family: inherit;
+}
+
+.search-area input:focus {
+    border-color: var(--orange);
+}
+
+.search-area button {
+    border-radius: 30px;
+    padding: 0 25px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.toolbar p {
+    color: #777;
+    font-size: 13px;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.food-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px #0000000b;
+    transition: .3s;
+}
+
+.food-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px #00000015;
+}
+
+.food-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.food-info {
+    padding: 20px;
+}
+
+.food-info h3 {
+    font-size: 17px;
+    margin-bottom: 9px;
+}
+
+.food-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.food-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.food-bottom strong {
+    color: var(--orange);
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.details-btn {
+    background: var(--dark);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 9px 14px;
+    cursor: pointer;
+}
+
+.fav-btn {
+    border: 1px solid #eee;
+    background: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.fav-btn.active {
+    color: #e53935;
+}
+
+.loader {
+    display: none;
+    text-align: center;
+    padding: 45px;
+}
+
+.spinner {
+    width: 45px;
+    height: 45px;
+    border: 5px solid #eee;
+    border-top-color: var(--orange);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto auto 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.message {
+    text-align: center;
+    padding: 35px;
+    color: #777;
+    display: none;
+}
+
+.promo {
+    margin: 30px 8% 65px;
+    padding: 50px 25px;
+    text-align: center;
+    background: var(--dark);
+    color: white;
+    border-radius: 20px;
+}
+
+.promo h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.promo p {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+footer {
+    background: #181818;
+    color: white;
+    padding: 45px 8% 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+footer h3 {
+    color: var(--orange);
+    margin-bottom: 12px;
+}
+
+footer p {
+    color: #bbb;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000a;
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 18px;
+    padding: 25px;
+    position: relative;
+}
+
+.modal-content img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    font-size: 28px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.modal-content p {
+    line-height: 1.8;
+    color: #666;
+    margin: 10px 0;
+}
+
+@media(max-width: 850px) {
+    .food-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero img {
+        width: 70%;
+    }
+}
+
+@media(max-width: 600px) {
+    nav {
+        padding: 15px 5%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 18px;
+    }
+    .nav-links a {
+        font-size: 12px;
+    }
+    .logo {
+        font-size: 21px;
+    }
+    .hero {
+        padding: 50px 6%;
+    }
+    .section {
+        padding: 45px 5%;
+    }
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+    .search-area {
+        flex-wrap: wrap;
+    }
+    .search-area input {
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .search-area button {
+        padding: 12px 20px;
+    }
+    .toolbar {
+        flex-wrap: wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="logo">Foodie<span>Hub.</span></div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Explore Food</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+        <button class="btn" onclick="showFavorites()">♥ Favorites</button>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+    <div class="hero-text">
+        <small>WELCOME TO FOODIE HUB</small>
+        <h1>Discover The <span>Taste</span> Of Happiness!</h1>
+        <p>
+            Explore delicious recipes from around the world.
+            Find your favourite meals and discover something
+            amazing every day.
+        </p>
+        <a href="#menu">
+            <button class="btn">Explore Menu →</button>
+        </a>
+    </div>
+
+    <img
+      src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800"
+      alt="Delicious food bowl">
+</section>
+
+<!-- FOOD SECTION -->
+<section class="section" id="menu">
+
+    <div class="section-title">
+        <small>OUR COLLECTION</small>
+        <h2>Explore Delicious Food</h2>
+    </div>
+
+    <div class="categories">
+        <button class="category-btn active"
+          onclick="filterCuisine('All',this)">All</button>
+        <button class="category-btn"
+          onclick="filterCuisine('Italian',this)">Italian</button>
+        <button class="category-btn"
+          onclick="filterCuisine('Asian',this)">Asian</button>
+        <button class="category-btn"
+          onclick="filterCuisine('American',this)">American</button>
+        <button class="category-btn"
+          onclick="filterCuisine('Mexican',this)">Mexican</button>
+    </div>
+
+    <div class="search-area">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search your favourite food...">
+        <button class="btn" onclick="searchFood()">Search</button>
+    </div>
+
+    <div class="toolbar">
+        <p id="resultCount">Discover our delicious recipes</p>
+        <button class="btn" onclick="loadFoods()">↻ Reload Foods</button>
+    </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>Loading delicious food...</p>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="food-grid" id="foodGrid"></div>
+
+</section>
+
+<!-- PROMOTION -->
+<section class="promo" id="about">
+    <h2>Good Food. Good Mood.</h2>
+    <p>Discover new recipes and bring happiness to your table.</p>
+    <a href="#menu">
+        <button class="btn">Explore Now</button>
+    </a>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <div class="footer-content">
+        <div>
+            <h3>Foodie Hub</h3>
+            <p>Your destination for discovering delicious recipes.</p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <p>Home<br>Explore Food<br>About Us</p>
+        </div>
+
+        <div>
+            <h3>Contact Us</h3>
+            <p>Email: hello@foodiehub.com<br>
+            Website: www.foodiehub.com</p>
+        </div>
+    </div>
+
+    <p class="copyright">
+        © 2026 Foodie Hub. All Rights Reserved.
+    </p>
+</footer>
+
+<!-- FOOD DETAILS MODAL -->
+<div class="modal" id="foodModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal()">×</button>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+
+// GLOBAL VARIABLES
+let allFoods = [];
+let favorites = [];
+let currentFoods = [];
+
+// API URL
+const API = "https://dummyjson.com/recipes";
+
+// FETCH API: LOAD FOODS
+async function loadFoods() {
+
+    showLoader(true);
+    hideMessage();
+
+    try {
+
+        const response = await fetch(API + "?limit=30");
+
+        if (!response.ok) {
+            throw new Error("Unable to load food data");
+        }
+
+        const data = await response.json();
+
+        allFoods = data.recipes;
+        currentFoods = [...allFoods];
+
+        displayFoods(currentFoods);
+
+    } catch (error) {
+
+        showMessage(
+          "⚠️ Something went wrong! Please check your internet and try again."
+        );
+
+        console.error(error);
+
+    } finally {
+
+        showLoader(false);
+
+    }
+}
+
+// DISPLAY FOOD CARDS
+function displayFoods(foods) {
+
+    const grid = document.getElementById("foodGrid");
+
+    grid.innerHTML = "";
+
+    document.getElementById("resultCount").innerText =
+        foods.length + " Delicious Recipes Found";
+
+    if (foods.length === 0) {
+        showMessage("No food found. Try another search!");
+        return;
+    }
+
+    hideMessage();
+
+    foods.forEach(food => {
+
+        const isFav = favorites.some(item => item.id === food.id);
+
+        const card = document.createElement("div");
+
+        card.className = "food-card";
+
+        card.innerHTML = `
+            <img src="${food.image}" alt="${food.name}"
+                 loading="lazy">
+
+            <div class="food-info">
+
+                <h3>${food.name}</h3>
+
+                <div class="food-meta">
+                    <span>⭐ ${food.rating}</span>
+                    <span>⏱ ${food.prepTimeMinutes + food.cookTimeMinutes} min</span>
+                    <span>${food.difficulty}</span>
+                </div>
+
+                <div class="food-bottom">
+                    <strong>${food.cuisine}</strong>
+
+                    <div class="card-actions">
+                        <button class="fav-btn ${isFav ? 'active' : ''}"
+                            onclick="toggleFavorite(${food.id})">
+                            ♥
+                        </button>
+
+                        <button class="details-btn"
+                            onclick="showDetails(${food.id})">
+                            Details
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+// SEARCH FOOD USING FETCH API
+async function searchFood() {
+
+    const query = document.getElementById("searchInput")
+        .value.trim();
+
+    if (!query) {
+        displayFoods(allFoods);
+        currentFoods = [...allFoods];
+        return;
+    }
+
+    showLoader(true);
+    hideMessage();
+
+    try {
+
+        const response = await fetch(
+            API + "/search?q=" + encodeURIComponent(query)
+        );
+
+        if (!response.ok) {
+            throw new Error("Search failed");
+        }
+
+        const data = await response.json();
+
+        currentFoods = data.recipes;
+
+        displayFoods(currentFoods);
+
+    } catch (error) {
+
+        showMessage("Search failed! Please try again.");
+
+    } finally {
+
+        showLoader(false);
+
+    }
+}
+
+// CATEGORY FILTER
+function filterCuisine(cuisine, button) {
+
+    document.querySelectorAll(".category-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.getElementById("searchInput").value = "";
+
+    currentFoods = cuisine === "All"
+        ? [...allFoods]
+        : allFoods.filter(food =>
+            food.cuisine.toLowerCase() === cuisine.toLowerCase()
+        );
+
+    displayFoods(currentFoods);
+}
+
+// FAVORITES
+function toggleFavorite(id) {
+
+    const food = allFoods.find(item => item.id === id);
+
+    if (!food) return;
+
+    const exists = favorites.some(item => item.id === id);
+
+    if (exists) {
+
+        favorites = favorites.filter(item => item.id !== id);
+
+    } else {
+
+        favorites.push(food);
+
+    }
+
+    displayFoods(currentFoods);
+
+}
+
+function showFavorites() {
+
+    document.getElementById("searchInput").value = "";
+
+    currentFoods = [...favorites];
+
+    displayFoods(currentFoods);
+
+    document.getElementById("menu").scrollIntoView();
+
+}
+
+// FOOD DETAILS
+function showDetails(id) {
+
+    const food = allFoods.find(item => item.id === id);
+
+    if (!food) return;
+
+    document.getElementById("modalBody").innerHTML = `
+
+        <h2>${food.name}</h2>
+
+        <img src="${food.image}" alt="${food.name}">
+
+        <p><strong>Cuisine:</strong> ${food.cuisine}</p>
+
+        <p><strong>Difficulty:</strong> ${food.difficulty}</p>
+
+        <p><strong>Rating:</strong> ⭐ ${food.rating}</p>
+
+        <p><strong>Preparation:</strong>
+           ${food.prepTimeMinutes} minutes</p>
+
+        <p><strong>Ingredients:</strong></p>
+
+        <p>${food.ingredients.join(", ")}</p>
+
+        <p><strong>Instructions:</strong></p>
+
+        <p>${food.instructions.join("<br><br>")}</p>
+
+    `;
+
+    document.getElementById("foodModal").style.display = "flex";
+
+}
+
+function closeModal() {
+
+    document.getElementById("foodModal").style.display = "none";
+
+}
+
+// CLOSE MODAL ON BACKGROUND CLICK
+document.getElementById("foodModal").addEventListener(
+    "click",
+    function(event) {
+        if (event.target === this) {
+            closeModal();
+        }
+    }
+);
+
+// SEARCH ON ENTER KEY
+document.getElementById("searchInput")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            searchFood();
+        }
+
+    });
+
+// LOADER
+function showLoader(show) {
+
+    document.getElementById("loader").style.display =
+        show ? "block" : "none";
+
+    document.getElementById("foodGrid").style.display =
+        show ? "none" : "grid";
+
+}
+
+// ERROR / EMPTY MESSAGE
+function showMessage(message) {
+
+    const element = document.getElementById("message");
+
+    element.innerText = message;
+    element.style.display = "block";
+
+}
+
+function hideMessage() {
+
+    document.getElementById("message").style.display = "none";
+
+}
+
+// INITIAL PAGE LOAD
+loadFoods();
+
+</script>
+
+</body>
+</html>
