@@ -1,2 +1,1 @@
-# Foodie-hub
-My first Foodie Hub project built using HTML,CSS and Javascript
+[Live website -Foodie Hub]https://ahmed-codes123.github.io/Foodie-hub/Assignment.html
